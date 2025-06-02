@@ -1,0 +1,2 @@
+# tickets-corregido
+Venta tickets
