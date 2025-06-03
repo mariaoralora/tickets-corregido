@@ -202,12 +202,7 @@
 </head>
 <body>
   <h2>Registro de Tickets</h2>
-  <label for="nombre">Nombre del estudiante:</label>
-  <input type="text" id="nombre" placeholder="Ejemplo: Juan Pérez" autocomplete="off" />
-
-  <label for="curso">Curso:</label>
-  <input type="text" id="curso" placeholder="Ejemplo: 10° A" autocomplete="off" />
-
+  
   <div id="productos"></div>
 
   <div class="total">Total: RD$<span id="total">0</span></div>
@@ -461,8 +456,6 @@
         registro.items.forEach(({ cantidad, producto }) => {
           filasExcel.push({
             Compra: idx + 1,
-            Nombre: registro.nombre,
-            Curso: registro.curso,
             Producto: producto.nombre,
             Cantidad: cantidad,
             'Precio Unitario': producto.precio,
