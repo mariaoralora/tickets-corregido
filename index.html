@@ -202,13 +202,11 @@
 </head>
 <body>
   <h2>Registro de Tickets</h2>
-  
   <div id="productos"></div>
 
   <div class="total">Total: RD$<span id="total">0</span></div>
 
   <button class="confirmar" onclick="guardarCompra()">Confirmar compra</button>
-  <button id="descargarExcel" onclick="descargarHistorialExcel()">Descargar historial en Excel</button>
 
   <div class="resumen">
     <h3>Resumen de la compra</h3>
@@ -384,14 +382,6 @@
     }
 
     function guardarCompra() {
-      const nombre = document.getElementById('nombre').value.trim();
-      const curso = document.getElementById('curso').value.trim();
-
-      if (!nombre || !curso) {
-        alert('Por favor, ingresa nombre y curso del estudiante.');
-        return;
-      }
-
       const itemsComprados = compra
         .map((cantidad, i) => ({ cantidad, producto: productos[i] }))
         .filter(item => item.cantidad > 0);
@@ -401,7 +391,7 @@
         return;
       }
 
-      let resumenTexto = `Estudiante: ${nombre}\nCurso: ${curso}\n\nProductos:\n`;
+      let resumenTexto = `Productos:\n`;
       let total = 0;
       itemsComprados.forEach(({ cantidad, producto }) => {
         resumenTexto += `- ${producto.nombre} x ${cantidad} = RD$${cantidad * producto.precio}\n`;
@@ -412,8 +402,6 @@
       resumenPre.textContent = resumenTexto;
 
       historial.push({
-        nombre,
-        curso,
         items: itemsComprados,
         total
       });
@@ -424,9 +412,6 @@
       compra = [];
       renderProductos();
       actualizarTotal();
-
-      document.getElementById('nombre').value = '';
-      document.getElementById('curso').value = '';
     }
 
     function actualizarHistorial() {
@@ -436,7 +421,7 @@
       }
       let texto = '';
       historial.forEach((registro, i) => {
-        texto += `Compra #${i + 1}\nEstudiante: ${registro.nombre}\nCurso: ${registro.curso}\nProductos:\n`;
+        texto += `Compra #${i + 1}\nProductos:\n`;
         registro.items.forEach(({ cantidad, producto }) => {
           texto += `- ${producto.nombre} x ${cantidad} = RD$${cantidad * producto.precio}\n`;
         });
